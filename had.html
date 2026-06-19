@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1">
+
+<title>NYAMFRUT STORE</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+
+background:
+
+linear-gradient(
+
+135deg,
+
+#0f172a,
+
+#1e1b4b,
+
+#312e81
+
+);
+
+min-height:100vh;
+
+color:white;
+
+}
+
+.header{
+
+text-align:center;
+
+padding:25px;
+
+font-size:32px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+text-shadow:
+
+0 0 20px #60a5fa;
+
+}
+
+.container{
+
+max-width:450px;
+
+margin:auto;
+
+padding:15px;
+
+}
+
+.box{
+
+background:
+
+rgba(30,41,59,.9);
+
+padding:20px;
+
+border-radius:25px;
+
+box-shadow:
+
+0 0 25px
+
+rgba(96,165,250,.3);
+
+}
+
+h2{
+
+text-align:center;
+
+margin-bottom:15px;
+
+}
+
+input,select,button{
+
+width:100%;
+
+padding:14px;
+
+margin-top:12px;
+
+border:none;
+
+border-radius:15px;
+
+font-size:16px;
+
+}
+
+input,select{
+
+background:#334155;
+
+color:white;
+
+}
+
+button{
+
+background:
+
+linear-gradient(
+
+90deg,
+
+#3b82f6,
+
+#8b5cf6
+
+);
+
+color:white;
+
+font-weight:bold;
+
+cursor:pointer;
+
+}
+
+.batal{
+
+background:
+
+linear-gradient(
+
+90deg,
+
+#ef4444,
+
+#dc2626
+
+);
+
+}
+
+.status{
+
+margin-top:15px;
+
+padding:15px;
+
+background:#334155;
+
+border-radius:15px;
+
+text-align:center;
+
+}
+
+#login{
+
+display:none;
+
+margin-top:20px;
+
+}
+
+#admin{
+
+display:none;
+
+margin-top:20px;
+
+}
+
+.popup{
+
+display:none;
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+background:
+
+rgba(0,0,0,.7);
+
+}
+
+.popup-box{
+
+width:320px;
+
+max-width:90%;
+
+background:#1e293b;
+
+padding:20px;
+
+border-radius:25px;
+
+margin:150px auto;
+
+text-align:center;
+
+}
+
+.copy{
+
+background:#22c55e;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header"
+
+onclick="bukaAdmin()">
+
+⚡ NYAMFRUT STORE ⚡
+
+</div>
+
+<div class="container">
+
+<div class="box">
+
+<h2>
+
+🎮 Free Fire
+
+</h2>
+
+<p style="text-align:center">
+
+📞 Admin :
+
+<b>
+
++62 881-0372-28954
+
+</b>
+
+</p>
+
+<input
+
+id="idff"
+
+placeholder="Masukkan ID Free Fire">
+
+<select id="dm">
+
+<option>
+
+Pilih Diamond
+
+</option>
+
+<option>5 DM - Rp1.500</option>
+
+<option>10 DM - Rp2.500</option>
+
+<option>12 DM - Rp2.700</option>
+
+<option>20 DM - Rp4.500</option>
+
+<option>50 DM - Rp8.000</option>
+
+<option>70 DM - Rp10.000</option>
+
+<option>100 DM - Rp13.500</option>
+
+<option>140 DM - Rp18.500</option>
+
+<option>210 DM - Rp27.000</option>
+
+</select>
+
+<select
+
+id="bayar"
+
+onchange="isiNomor()">
+
+<option value="smartfren">
+
+Pulsa Smartfren
+
+</option>
+
+<option value="dana">
+
+DANA
+
+</option>
+
+</select>
+
+<input
+
+id="nomor"
+
+readonly
+
+placeholder="Nomor pembayaran"
+
+style="
+background:#475569;
+cursor:not-allowed;
+">
+
+<button
+
+onclick="pesan()">
+
+🛒 Pesan Sekarang
+
+</button>
+
+<button
+
+class="batal"
+
+onclick="batal()">
+
+❌ Batalkan Pesanan
+
+</button>
+
+<div
+
+class="status"
+
+id="status">
+
+Belum ada pesanan
+
+</div>
+
+</div>
+
+<!-- LOGIN ADMIN -->
+
+<div class="box" id="login">
+
+<h2>👑 Login Admin</h2>
+
+<input
+id="user"
+placeholder="Username">
+
+<input
+type="password"
+id="pass"
+placeholder="Password">
+
+<button onclick="login()">
+
+Masuk
+
+</button>
+
+<p id="pesanLogin"></p>
+
+</div>
+
+<!-- MODE ADMIN -->
+
+<div class="box" id="admin">
+
+<h2>👑 Mode Admin</h2>
+
+<p>ID FF :
+<b id="adminId">-</b>
+</p>
+
+<p>Diamond :
+<b id="adminDm">-</b>
+</p>
+
+<p>Pembayaran :
+<b id="adminBayar">-</b>
+</p>
+
+<button onclick="bayarMasuk()">
+
+💰 Pembayaran Masuk
+
+</button>
+
+<button onclick="kirimDm()">
+
+📤 DM Sudah Dikirim
+
+</button>
+
+<button onclick="logout()">
+
+🚪 Logout
+
+</button>
+
+<div class="status"
+
+id="statusAdmin">
+
+Belum ada pesanan
+
+</div>
+
+</div>
+
+</div>
+
+<!-- POPUP -->
+
+<div class="popup"
+
+id="popup">
+
+<div class="popup-box">
+
+<h2 id="judulPopup">
+
+Pembayaran
+
+</h2>
+
+<p id="isiPopup">
+
+-
+
+</p>
+
+<br>
+
+<button
+
+class="copy"
+
+onclick="salinNomor()">
+
+📋 Salin Nomor
+
+</button>
+
+<button
+
+onclick="tutupPopup()">
+
+Done
+
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+const username =
+"Tarzmodegz62";
+
+const password =
+"Tarzmoderng";
+
+let nomorBayar="";
+
+let klikAdmin=0;
+
+function bukaAdmin(){
+
+klikAdmin++;
+
+if(klikAdmin>=5){
+
+document
+.getElementById("login")
+.style.display="block";
+
+klikAdmin=0;
+
+}
+
+}
+
+function login(){
+
+let u=
+document
+.getElementById("user")
+.value;
+
+let p=
+document
+.getElementById("pass")
+.value;
+
+if(
+
+u===username
+
+&&
+
+p===password
+
+){
+
+document
+.getElementById("login")
+.style.display="none";
+
+document
+.getElementById("admin")
+.style.display="block";
+
+}else{
+
+document
+.getElementById("pesanLogin")
+.innerHTML=
+
+"❌ Username atau Password salah";
+
+}
+
+}
+
+function isiNomor(){
+
+let bayar=
+
+document
+.getElementById("bayar")
+.value;
+
+let nomor=
+
+document
+.getElementById("nomor");
+
+if(bayar=="smartfren"){
+
+nomor.value=
+"62881037228954";
+
+nomorBayar=
+"62881037228954";
+
+}else{
+
+nomor.value=
+"085926862136";
+
+nomorBayar=
+"085926862136";
+
+}
+
+}
+
+window.onload=function(){
+
+isiNomor();
+
+}
+
+function pesan(){
+
+let id=
+
+document
+.getElementById("idff")
+.value;
+
+let dm=
+
+document
+.getElementById("dm")
+.value;
+
+let bayar=
+
+document
+.getElementById("bayar")
+.options[
+document.getElementById("bayar")
+.selectedIndex
+].text;
+
+if(id==""){
+
+alert(
+"Isi ID FF!"
+);
+
+return;
+
+}
+
+document
+.getElementById("status")
+.innerHTML=
+
+"⏳ Menunggu Pembayaran";
+
+document
+.getElementById("statusAdmin")
+.innerHTML=
+
+"🆕 Pesanan Baru";
+
+document
+.getElementById("adminId")
+.innerHTML=id;
+
+document
+.getElementById("adminDm")
+.innerHTML=dm;
+
+document
+.getElementById("adminBayar")
+.innerHTML=bayar;
+
+document
+.getElementById("judulPopup")
+.innerHTML=
+
+bayar;
+
+document
+.getElementById("isiPopup")
+.innerHTML=
+
+"Nomor Pembayaran:<br><br><b>"
+
++
+
+nomorBayar
+
++
+
+"</b>";
+
+document
+.getElementById("popup")
+.style.display="block";
+
+}
+
+function salinNomor(){
+
+navigator.clipboard
+.writeText(nomorBayar);
+
+alert(
+"Nomor berhasil disalin!"
+);
+
+}
+
+function batal(){
+
+document
+.getElementById("status")
+.innerHTML=
+
+"❌ Pesanan Dibatalkan";
+
+document
+.getElementById("statusAdmin")
+.innerHTML=
+
+"❌ Dibatalkan Pembeli";
+
+document
+.getElementById("popup")
+.style.display="none";
+
+}
+
+function bayarMasuk(){
+
+document
+.getElementById("status")
+.innerHTML=
+
+"✅ Pembayaran Berhasil";
+
+document
+.getElementById("statusAdmin")
+.innerHTML=
+
+"✅ Pembayaran Sudah Masuk";
+
+alert(
+"Pembayaran berhasil dikonfirmasi!"
+);
+
+}
+
+function kirimDm(){
+
+document
+.getElementById("status")
+.innerHTML=
+
+"🎉 Diamond Sudah Dikirim";
+
+document
+.getElementById("statusAdmin")
+.innerHTML=
+
+"📤 DM Sudah Dikirim";
+
+alert(
+"Diamond berhasil dikirim!"
+);
+
+}
+
+function tutupPopup(){
+
+document
+.getElementById("popup")
+.style.display="none";
+
+}
+
+function logout(){
+
+document
+.getElementById("admin")
+.style.display="none";
+
+document
+.getElementById("login")
+.style.display="none";
+
+alert(
+"Logout berhasil"
+);
+
+}
+
+</script>
+
+</body>
+
+</html>
+
